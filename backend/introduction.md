@@ -1,21 +1,24 @@
-# Backend Introduction
+# Introduction
 
 ## Internet
 Là gì?
 - Mạng lưới kết nối nhiều thiết bị trên toàn thế giới với nhau thông qua giao thức truyền dữ liệu chung
 
 Vì sao cần?
-- Giúp trao đổi dữ liệu, truy cập thông tin, sử dụng dịch vụ tù xa, kết nối với nhau ở bất kỳ đâu trên thế giới
+- Giúp trao đổi thông tin, truy cập dữ liệu, sử dụng các dịch vụ trực tuyến, kết nối với nhau ở bất kỳ đâu trên thế giới
 
 Hoạt động như thế nào?
 - Định danh thiết bị bằng IP, phân giải tên miền qua DNS, chia dữ liệu thành packet, định tuyến qua nhiều router trên toàn cầu bằng IP routing -> ghép lại ở thiết bị nhận nhờ TCP/IP để đảm bảo dữ liệu đầy đủ và chính xác
 
 Khi nào dùng?
+- Truy cập thông tin nhanh chóng
+- Kết nối và giao tiếp toàn cầu
+- Giải trí và thư giãn
 - Khi thiết bị cần giao tiếp hoặc trao đổi dữ liệu với một hệ thống nằm ngoài mạng nội bộ
 
 ## HTTP
 Là gì?
-- HyperText Transfer Protocol - giao thức dùng để trình duyệt và máy chủ web giao tiếp với nhau
+- HyperText Transfer Protocol - Giao thức truyền tải siêu văn bản - giao thức dùng để trình duyệt và máy chủ web giao tiếp với nhau
 
 Vì sao cần?
 - Trình duyệt không biết cách hỏi server lấy dữ liệu
@@ -38,6 +41,8 @@ Ví dụ google.com
 
 Vì sao cần?
 - Dễ dàng ghi nhớ thay vì nhớ địa chỉ IP
+- Nhận diện thương hiệu - đại diện cho thương hiệu của mình trên internet
+- Tối ưu hóa SEO - Ảnh hưởng đến thứ hạng của bạn trên các công cụ tìm kiếm như Google
 
 Khi nào dùng?
 - Dùng khi muốn người dùng truy cập hệ thống bằng tên rõ ràng
@@ -80,14 +85,19 @@ Khi nào dùng?
 
 ## Browser
 Là gì?
-- Phần mềm dùng để truy cập và hiển thị nội dung web
+- Hay còn gọi là trình duyệt web, là một phần mềm cho phép bạn truy cập vào các trang web trên Internet
+- Trình duyệt có thể hiển thị các nội dung đa phương tiện như văn bản, hình ảnh, video, âm thanh hoặc các ứng dụng web.
 Ví dụ: Google Chrome, Safari,...
 
 Vì sao cần?
+- Tìm kiếm thông tin
+- Giải trí, làm việc,...
 - Giúp người dùng xem website và tương tác với ứng dụng web
 
 Hoạt động như thế nào?
-- Nhập địa chỉ website -> Nhận dữ liệu: Máy chủ trả về dữ liệu -> Hiển thị ra màn hình
+- Cần có kết nối Internet -> Nhập địa chỉ website vào thanh địa chỉ của browser -> browser sẽ gửi một yêu cầu đến máy chủ web chứa trang web đó -> Máy chủ web sẽ trả về một mã HTML cho browser -> Browser sẽ phân tích mã HTML và hiển thị nội dung của trang web lên màn hình.
 
 Khi nào dùng?
+- Tìm kiếm thông tin
+- Giải trí, làm việc,...
 - Dùng khi mở website
