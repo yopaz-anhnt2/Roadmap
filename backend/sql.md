@@ -12,14 +12,17 @@ Là gì?
   - TCL (Transaction Control Language): quản lý giao dịch — `COMMIT`, `ROLLBACK`
 
 Dùng để làm gì?
-- Thêm, sửa, xóa, đọc dữ liệu từ cơ sở dữ liệu quan hệ
-- Lọc, sắp xếp, nhóm dữ liệu theo điều kiện thay vì đọc toàn bộ rồi xử lý bằng code
-- Là cách chuẩn để giao tiếp với hầu hết các hệ quản trị CSDL (MySQL, PostgreSQL, SQL Server, Oracle...)
+- Thêm dữ liệu vào cơ sở dữ liệu
+- Truy xuất (tìm kiếm) dữ liệu
+- Cập nhật dữ liệu
+- Xóa dữ liệu
+- Tạo và quản lý bảng dữ liệu
+- Phân tích và xử lý dữ liệu
 
 ## Join
 
 Là gì?
-- Là phép kết hợp dữ liệu từ hai hay nhiều bảng dựa trên một cột liên quan giữa chúng (thường là khóa chính - khóa ngoại)
+- Là phép kết hợp dữ liệu từ hai hay nhiều bảng dựa trên một cột liên quan giữa chúng
 - Các loại Join phổ biến:
   - `INNER JOIN`: chỉ lấy các bản ghi khớp ở cả hai bảng
   - `LEFT JOIN`: lấy tất cả bản ghi bảng trái + bản ghi khớp ở bảng phải (không khớp thì NULL)
@@ -29,19 +32,21 @@ Là gì?
 Dùng để làm gì?
 - Ghép lại dữ liệu liên quan nằm rải rác ở nhiều bảng để hiển thị thông tin đầy đủ
 - Ví dụ: bảng `orders` chỉ lưu `user_id`, Join với bảng `users` để biết tên người đặt hàng
-- Dùng khi cần báo cáo, thống kê tổng hợp từ nhiều nguồn dữ liệu
 
 ## Aggregate
 
 Là gì?
-- Là các hàm tổng hợp (aggregate functions) tính toán trên một nhóm dòng và trả về một giá trị duy nhất
+- Là các hàm tổng hợp tính toán trên nhiều dòng dữ liệu và trả về một kết quả tổng hợp duy nhất.
 - Các hàm phổ biến: `COUNT()`, `SUM()`, `AVG()`, `MAX()`, `MIN()`
 - Thường đi kèm `GROUP BY` (nhóm dữ liệu) và `HAVING` (lọc trên nhóm)
 
 Dùng để làm gì?
-- Thống kê, tóm tắt dữ liệu thay vì xem từng dòng riêng lẻ
-- Tính các con số tổng hợp: đếm số lượng, tính tổng, trung bình, lớn nhất, nhỏ nhất
-- Ví dụ: tổng doanh thu, số đơn trung bình mỗi user, sản phẩm bán chạy nhất — phục vụ báo cáo, dashboard
+- Đếm số lượng dữ liệu
+- Tính tổng
+- Tính trung bình
+- Tìm giá trị lớn nhất
+- Tìm giá trị nhỏ nhất
+- Thống kê và phân tích dữ liệu
 
 ## Database Design
 
