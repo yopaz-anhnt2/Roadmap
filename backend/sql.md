@@ -52,26 +52,26 @@ Dùng để làm gì?
 
 Là gì?
 - Là quá trình thiết kế cấu trúc cơ sở dữ liệu: xác định các bảng, cột, kiểu dữ liệu, và mối quan hệ giữa các bảng
-- Bao gồm chuẩn hóa (normalization) để giảm trùng lặp và mô hình hóa quan hệ:
-  - 1-1: một user có một profile
-  - 1-n: một user có nhiều order
-  - n-n: một order có nhiều product và ngược lại (cần bảng trung gian)
 
 Dùng để làm gì?
-- Tạo nền tảng dữ liệu nhất quán, dễ mở rộng, dễ bảo trì và truy vấn hiệu quả
-- Tránh dữ liệu trùng lặp, khó cập nhật, dễ sai sót
-- Dùng khi bắt đầu một dự án mới, hoặc khi thêm tính năng lớn làm thay đổi cấu trúc dữ liệu
+- Tổ chức thông tin: Giúp tạo ra một "kho" lưu trữ thông tin kỹ thuật số có hệ thống, mạch lạc và chính xác.
+- Giảm thiểu dữ liệu dư thừa: Thiết kế chuẩn giúp loại bỏ việc lưu trữ lặp đi lặp lại một thông tin, từ đó tiết kiệm tối đa dung lượng lưu trữ.
+- Tối ưu tốc độ truy xuất: Cấu trúc dữ liệu hợp lý giúp các phần mềm, ứng dụng truy cập, tìm kiếm và cập nhật thông tin cực kỳ nhanh chóng.
+- Đảm bảo tính toàn vẹn: Hạn chế tối đa các lỗi logic, tránh tình trạng mâu thuẫn hoặc mất mát dữ liệu trong quá trình sử dụng.
+- Bảo mật và mở rộng: Dễ dàng kiểm soát quyền truy cập và nâng cấp hệ thống khi quy mô kinh doanh hoặc ứng dụng phát triển lớn hơn.
 
 ## Migrations
 
 Là gì?
-- Là cách quản lý thay đổi cấu trúc database (schema) bằng các file có phiên bản, lưu cùng source code
+- Là cách quản lý thay đổi cấu trúc CSDL bằng các file có phiên bản, lưu cùng source code
 - Mỗi migration mô tả một thay đổi: tạo bảng, thêm cột, đổi kiểu dữ liệu, tạo index... và thường có 2 phần `up` (áp dụng) / `down` (hoàn tác)
 
 Dùng để làm gì?
-- Đồng bộ cấu trúc database giữa các môi trường (local, staging, production) và giữa các thành viên trong team
-- Lưu lịch sử thay đổi schema, có thể rollback khi cần
-- Tránh phải sửa database thủ công gây sai lệch giữa các môi trường
+- Quản lý thay đổi database bằng code
+- Đồng bộ database giữa các môi trường (dev, test, production)
+- Theo dõi lịch sử thay đổi
+- Dễ rollback khi có lỗi
+- Hỗ trợ làm việc nhóm
 
 ## Constraint
 
@@ -86,36 +86,151 @@ Là gì?
   - `DEFAULT`: giá trị mặc định khi không nhập
 
 Dùng để làm gì?
-- Đảm bảo dữ liệu luôn hợp lệ ngay tại tầng database, không phụ thuộc hoàn toàn vào code ứng dụng
-- Ngăn dữ liệu rác, dữ liệu mâu thuẫn (ví dụ: đơn hàng trỏ tới user không tồn tại sẽ bị từ chối)
-- Ràng buộc quy tắc nghiệp vụ ngay ở tầng dữ liệu
+- Đảm bảo dữ liệu chính xác
+- Tránh dữ liệu trùng lặp
+- Ngăn dữ liệu không hợp lệ
+- Duy trì mối quan hệ giữa các bảng
+- Tăng tính toàn vẹn dữ liệu
 
 ## Index
 
 Là gì?
-- Là cấu trúc dữ liệu phụ (thường là B-Tree) giúp database tìm kiếm dữ liệu nhanh hơn mà không phải quét toàn bộ bảng
+- Là cấu trúc dữ liệu đặc biệt trong database dùng để tăng tốc độ tìm kiếm và truy vấn dữ liệu.
 - Giống như mục lục của một cuốn sách: tra mục lục nhanh hơn lật từng trang
 
 Dùng để làm gì?
-- Tăng tốc các truy vấn `WHERE`, `JOIN`, `ORDER BY` trên bảng có nhiều dữ liệu
-- Thường đánh trên các cột hay dùng để tìm kiếm, lọc, join, sắp xếp (ví dụ: email, user_id, created_at)
+- Tăng tốc truy vấn
+- Giảm thời gian tìm kiếm dữ liệu
+- Tăng hiệu năng hệ thống
+- Tăng tốc WHERE
+- Tăng tốc JOIN
+- Tăng tốc ORDER BY
+- Tăng tốc GROUP BY
+
+Nhược điểm:
+
+- Tốn thêm bộ nhớ
+- Làm chậm INSERT, UPDATE, DELETE
+- Quá nhiều Index có thể phản tác dụng
+
+Vì khi dữ liệu thay đổi:
+
+Dữ liệu đổi
+↓
+Index cũng phải cập nhật
 
 ### Các loại Index trong MySQL / PostgreSQL
 
-MySQL (InnoDB)
-- B-Tree (mặc định): loại phổ biến nhất, dùng cho hầu hết trường hợp — tìm theo `=`, khoảng (`>`, `<`, `BETWEEN`), sắp xếp, prefix
-- Primary Key / Clustered Index: dữ liệu được lưu vật lý theo thứ tự khóa chính; mỗi bảng chỉ có 1
-- Unique Index: như B-Tree nhưng đảm bảo giá trị không trùng
-- Composite Index (index nhiều cột): đánh trên nhiều cột cùng lúc, theo thứ tự trái sang phải
-- Fulltext Index: tìm kiếm văn bản trong đoạn text dài (search theo từ khóa)
-- Spatial Index: cho dữ liệu không gian, tọa độ (GIS)
+#### MySQL (InnoDB)
 
-PostgreSQL (đa dạng hơn)
-- B-Tree (mặc định): dùng cho so sánh `=`, `<`, `>`, `BETWEEN`, `ORDER BY`
-- Hash: chỉ phục vụ so sánh bằng `=`, tra rất nhanh nhưng không hỗ trợ khoảng
-- GIN: cho dữ liệu nhiều giá trị trong một cột — JSONB, mảng, fulltext
-- GiST: cho dữ liệu không gian, tìm gần đúng, khoảng (range)
-- BRIN: cho bảng rất lớn mà dữ liệu sắp xếp tự nhiên theo cột (ví dụ thời gian), tốn ít bộ nhớ
+**1. B-Tree Index (mặc định)**
+- Là gì: cấu trúc cây cân bằng (balanced tree), loại index phổ biến và mặc định nhất. Dữ liệu trong cây được sắp xếp sẵn.
+- Tác dụng: tăng tốc tìm theo `=`, khoảng (`>`, `<`, `>=`, `<=`, `BETWEEN`), sắp xếp (`ORDER BY`), và tìm theo phần đầu chuỗi (prefix, ví dụ `LIKE 'abc%'`).
+- Ví dụ:
+```sql
+CREATE INDEX idx_users_email ON users(email);
+-- Tăng tốc: SELECT * FROM users WHERE email = 'a@gmail.com';
+```
+
+**2. Primary Key / Clustered Index**
+- Là gì: trong InnoDB, dữ liệu của bảng được lưu vật lý (sắp xếp trên disk) theo thứ tự của khóa chính. Mỗi bảng chỉ có duy nhất 1 clustered index.
+- Tác dụng: tra theo khóa chính cực nhanh vì dữ liệu nằm ngay tại nút lá của cây; đồng thời đảm bảo mỗi dòng là duy nhất.
+- Ví dụ:
+```sql
+CREATE TABLE users (
+  id INT PRIMARY KEY,   -- vừa là PK, vừa là clustered index
+  name VARCHAR(100)
+);
+```
+
+**3. Unique Index**
+- Là gì: giống B-Tree nhưng có thêm ràng buộc giá trị không được trùng lặp.
+- Tác dụng: vừa tăng tốc truy vấn, vừa đảm bảo toàn vẹn dữ liệu (không cho 2 dòng cùng giá trị).
+- Ví dụ:
+```sql
+CREATE UNIQUE INDEX idx_users_username ON users(username);
+-- Chèn username đã tồn tại sẽ bị báo lỗi
+```
+
+**4. Composite Index (index nhiều cột)**
+- Là gì: index đánh trên nhiều cột cùng lúc, có thứ tự từ trái sang phải.
+- Tác dụng: tối ưu truy vấn lọc/sắp xếp theo tổ hợp nhiều cột. Tuân theo quy tắc "leftmost prefix" — chỉ tận dụng được index nếu lọc bắt đầu từ cột bên trái.
+- Ví dụ:
+```sql
+CREATE INDEX idx_orders_user_status ON orders(user_id, status);
+-- Dùng được: WHERE user_id = 1 AND status = 'paid'
+-- Dùng được: WHERE user_id = 1
+-- KHÔNG tận dụng tốt: WHERE status = 'paid'  (thiếu cột trái user_id)
+```
+
+**5. Fulltext Index**
+- Là gì: index chuyên dùng để tìm kiếm từ khóa trong đoạn văn bản dài.
+- Tác dụng: tìm theo từ/cụm từ trong text nhanh hơn nhiều so với `LIKE '%...%'`.
+- Ví dụ:
+```sql
+CREATE FULLTEXT INDEX idx_posts_content ON posts(content);
+SELECT * FROM posts
+WHERE MATCH(content) AGAINST('database index');
+```
+
+**6. Spatial Index**
+- Là gì: index cho dữ liệu không gian, tọa độ (GIS — bản đồ, vị trí).
+- Tác dụng: tăng tốc truy vấn hình học/khoảng cách (tìm điểm trong vùng, gần một tọa độ).
+- Ví dụ:
+```sql
+CREATE SPATIAL INDEX idx_places_location ON places(location);
+-- location có kiểu GEOMETRY / POINT
+```
+
+#### PostgreSQL (đa dạng hơn)
+
+**1. B-Tree (mặc định)**
+- Là gì: cây cân bằng, index mặc định giống MySQL.
+- Tác dụng: so sánh `=`, `<`, `>`, `BETWEEN`, `ORDER BY`.
+- Ví dụ:
+```sql
+CREATE INDEX idx_users_age ON users(age);
+-- SELECT * FROM users WHERE age BETWEEN 20 AND 30;
+```
+
+**2. Hash Index**
+- Là gì: index dựa trên bảng băm (hash table).
+- Tác dụng: chỉ phục vụ so sánh bằng `=`, tra cực nhanh nhưng KHÔNG hỗ trợ khoảng (`>`, `<`) hay sắp xếp.
+- Ví dụ:
+```sql
+CREATE INDEX idx_sessions_token ON sessions USING HASH (token);
+-- SELECT * FROM sessions WHERE token = 'abc123';
+```
+
+**3. GIN (Generalized Inverted Index)**
+- Là gì: "inverted index" — phù hợp cho cột chứa nhiều giá trị bên trong (JSONB, mảng, fulltext).
+- Tác dụng: tìm phần tử trong mảng, key/value trong JSONB, hoặc từ khóa trong văn bản.
+- Ví dụ:
+```sql
+CREATE INDEX idx_products_tags ON products USING GIN (tags);
+-- SELECT * FROM products WHERE tags @> '{"sale"}';
+
+CREATE INDEX idx_docs_data ON docs USING GIN (data jsonb_path_ops);
+-- SELECT * FROM docs WHERE data @> '{"type":"invoice"}';
+```
+
+**4. GiST (Generalized Search Tree)**
+- Là gì: khung index linh hoạt cho dữ liệu không gian và tìm gần đúng.
+- Tác dụng: dữ liệu hình học/tọa độ, tìm "gần nhất" (nearest neighbor), kiểu range (khoảng), full-text.
+- Ví dụ:
+```sql
+CREATE INDEX idx_shapes_geom ON shapes USING GiST (geom);
+-- Tìm các hình giao nhau với một vùng
+```
+
+**5. BRIN (Block Range Index)**
+- Là gì: index lưu giá trị min/max theo từng khối (block) dữ liệu, rất gọn nhẹ.
+- Tác dụng: cho bảng CỰC LỚN mà dữ liệu đã sắp xếp tự nhiên theo cột (ví dụ thời gian, ID tăng dần). Tốn rất ít bộ nhớ so với B-Tree.
+- Ví dụ:
+```sql
+CREATE INDEX idx_logs_created ON logs USING BRIN (created_at);
+-- SELECT * FROM logs WHERE created_at >= '2026-01-01';
+```
 
 ### Khi nào dùng index nào?
 
@@ -156,6 +271,6 @@ Là gì?
 - Ví dụ: lấy 100 user (1 truy vấn), rồi với mỗi user lại truy vấn lấy order của họ (thêm 100 truy vấn) -> tổng cộng 101 truy vấn
 
 Dùng để làm gì? (nhận biết và xử lý)
-- Là lỗi cần phát hiện và tránh, vì gây ra số lượng truy vấn khổng lồ -> chậm nghiêm trọng khi dữ liệu lớn (phổ biến khi dùng ORM: Eloquent, Hibernate, Sequelize...)
+- Là lỗi cần phát hiện và tránh, vì gây ra số lượng truy vấn khổng lồ -> chậm nghiêm trọng khi dữ liệu lớn
 - Cách khắc phục — Eager Loading: tải sẵn dữ liệu liên quan, gom nhiều truy vấn con thành một truy vấn dùng `IN (...)` hoặc `JOIN` (101 truy vấn giảm còn 2)
 - Cần để ý khi vòng lặp qua một danh sách và truy cập dữ liệu quan hệ bên trong vòng lặp
