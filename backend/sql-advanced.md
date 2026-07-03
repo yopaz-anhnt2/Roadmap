@@ -1,7 +1,4 @@
-# SQL nâng cao (Performance và Transaction)
-
-Ghi chú các chủ đề nâng cao về hiệu năng và giao dịch trong database.
-Mỗi mục trả lời: Là gì, Dùng để làm gì, Khi nào dùng, Khác gì với cái tương đương, và một số câu hỏi phỏng vấn.
+# SQL nâng cao
 
 ## Query Optimization
 
