@@ -476,7 +476,8 @@ Nguồn tham khảo:
 ## Full Text Search
 
 Là gì?
-- Là cách tìm từ khóa bên trong nội dung văn bản dài một cách hiệu quả, dựa trên inverted index tức bảng ánh xạ mỗi từ tới danh sách tài liệu chứa từ đó.
+- Full-Text Search (FTS) là kỹ thuật tìm kiếm theo nội dung văn bản, thay vì tìm kiếm chính xác từng giá trị như `=` hoặc `LIKE`.
+- Hoạt động dựa trên inverted index, tức bảng ánh xạ mỗi từ tới danh sách tài liệu chứa từ đó, nên tìm từ khóa bên trong văn bản dài rất hiệu quả.
 - Có tách từ, bỏ các từ vô nghĩa (the, a, và, là), và xếp hạng theo độ liên quan.
 
 Dùng để làm gì?
